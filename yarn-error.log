@@ -1,0 +1,49 @@
+Arguments: 
+  /Users/maxim_kamenev/.nvm/versions/node/v17.0.1/bin/node /usr/local/bin/yarn
+
+PATH: 
+  /Users/maxim_kamenev/.nvm/versions/node/v17.0.1/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/maxim_kamenev/Downloads/02+Настройка+GraphQL/node_modules/.bin
+
+Yarn version: 
+  1.22.11
+
+Node version: 
+  17.0.1
+
+Platform: 
+  darwin arm64
+
+Trace: 
+  SyntaxError: /Users/maxim_kamenev/Downloads/02+Настройка+GraphQL/package.json: Unexpected token } in JSON at position 273
+      at JSON.parse (<anonymous>)
+      at /usr/local/lib/node_modules/yarn/lib/cli.js:1625:59
+      at Generator.next (<anonymous>)
+      at step (/usr/local/lib/node_modules/yarn/lib/cli.js:310:30)
+      at /usr/local/lib/node_modules/yarn/lib/cli.js:321:13
+
+npm manifest: 
+  {
+    "name": "node-mysql",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+      "start": "node index.js",
+      "dev": "nodemon index.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+      "express": "^4.16.4",
+    },
+    "devDependencies": {
+      "nodemon": "^1.19.0"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
