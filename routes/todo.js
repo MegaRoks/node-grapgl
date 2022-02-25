@@ -5,7 +5,7 @@ const router = Router();
 
 // Получение списка задач
 router.get('/', (req, res) => {
-  console.log('get todos list');
+  console.log('Get todos list');
 
   const todosList = [];
 
@@ -21,7 +21,7 @@ router.get('/', (req, res) => {
 
 // Получение диталей задачи
 router.get('/:id', (req, res) => {
-  console.log('get todo details');
+  console.log('Get todo details');
 
   const todoId = Number(req.params.id);
 
@@ -47,7 +47,7 @@ router.get('/:id', (req, res) => {
 
 // Создание новой задачи
 router.post('/',  (req, res) => {
-  console.log('todo create');
+  console.log('Create todo');
 
   const {id, title, done} = req.body;
   todos.set(id, { title, done });
@@ -62,7 +62,7 @@ router.post('/',  (req, res) => {
 
 // Изменение задачи
 router.put('/:id', (req, res) => {
-  console.log('todo update');
+  console.log('Update todo');
 
   const todoId = Number(req.params.id);
 
@@ -73,7 +73,7 @@ router.put('/:id', (req, res) => {
     todos.set(todoId, { title, done });
 
     res.status(200).json({
-      message: 'Todo updated',
+      message: 'Updated todo',
       todo,
     });
   } else {
@@ -85,7 +85,7 @@ router.put('/:id', (req, res) => {
 
 // Удаление задачи
 router.delete('/:id', (req, res) => {
-  console.log('todo delete');
+  console.log('Delete todo');
 
   const todoId = Number(req.params.id);
 
