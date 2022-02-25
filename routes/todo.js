@@ -1,148 +1,103 @@
-const {Router} = require('express')
-const router = Router()
+const { Router } = require('express');
+const { todos } = require('../database/database');
 
-const todosData = new Map([
-  [1,
-    {
-      title: 'Create App',
-      done: false,
-    }],
-]);
-
+const router = Router();
 
 // Получение списка задач
 router.get('/', (req, res) => {
-  try {
-    console.log('get list');
+  console.log('get todos list');
 
-    const todos = [];
+  const todosList = [];
 
-    for (let [key, value] of todosData.entries()) {
-      todos.push({ id: key, ...value });
-    }
-
-    console.log(todos);
-
-    res.status(200).json({
-      message: 'Todos list',
-      todos,
-    });
-  } catch (e) {
-    console.log(e)
-    res.status(500).json({
-      message: 'Server error',
-    });
+  for (let [key, value] of todos.entries()) {
+    todosList.push({ id: key, ...value });
   }
+
+  res.status(200).json({
+    message: 'Todos list',
+    todos: todosList,
+  });
 })
 
 // Получение диталей задачи
 router.get('/:id', (req, res) => {
-  try {
-    console.log('get details');
+  console.log('get todo details');
 
-    const todoId = Number(req.params.id);
+  const todoId = Number(req.params.id);
 
-    if(todosData.has(todoId)) {
-      const todoData =  todosData.get(todoId);
+  if(todos.has(todoId)) {
+    const fundTodo = todos.get(todoId);
 
-      const todo = {
-        id: todoId,
-        title: todoData.title,
-        done: todoData.done,
-      };
+    const todo = {
+      id: todoId,
+      title: fundTodo.title,
+      done: fundTodo.done,
+    };
 
-      res.status(200).json({
-        message: 'Todo details',
-        todo,
-      });
-    } else {
-      res.status(200).json({
-        message: `Todo with id ${todoId} not found`,
-      });
-    }
-  } catch (e) {
-    console.log(e);
-    res.status(500).json({
-      message: 'Server error',
+    res.status(200).json({
+      message: 'Todo details',
+      todo,
+    });
+  } else {
+    res.status(200).json({
+      message: `Todo with id ${todoId} not found`,
     });
   }
 });
 
 // Создание новой задачи
 router.post('/',  (req, res) => {
-  try {
-    console.log('create');
-    const {id, title, done} = req.body;
-    todosData.set(id, { title, done });
+  console.log('todo create');
 
-    const todo = { id, title, done };
+  const {id, title, done} = req.body;
+  todos.set(id, { title, done });
 
-    console.log(todo);
+  const todo = { id, title, done };
 
-    res.status(200).json({
-      message: 'Todo created',
-      todo,
-    });
-  } catch (e) {
-    console.log(e)
-    res.status(500).json({
-      message: 'Server error',
-    });
-  }
+  res.status(200).json({
+    message: 'Todo created',
+    todo,
+  });
 });
 
 // Изменение задачи
 router.put('/:id', (req, res) => {
-  try {
-    console.log('update');
+  console.log('todo update');
 
-    const todoId = Number(req.params.id);
+  const todoId = Number(req.params.id);
 
-    if(todosData.has(todoId)) {
-      const { title, done } = req.body;
-      const todo = { id: todoId, title, done };
+  if(todos.has(todoId)) {
+    const { title, done } = req.body;
+    const todo = { id: todoId, title, done };
 
-      todosData.set(todoId, { title, done });
+    todos.set(todoId, { title, done });
 
-      res.status(200).json({
-        message: 'Todo updated',
-        todo,
-      });
-    } else {
-      res.status(200).json({
-        message: `Todo with id ${todoId} not found`,
-      });
-    }
-  } catch (e) {
-    console.log(e)
-    res.status(500).json({
-      message: 'Server error',
+    res.status(200).json({
+      message: 'Todo updated',
+      todo,
+    });
+  } else {
+    res.status(200).json({
+      message: `Todo with id ${todoId} not found`,
     });
   }
 });
 
 // Удаление задачи
 router.delete('/:id', (req, res) => {
-  try {
-    console.log('delete')
+  console.log('todo delete');
 
-    const todoId = Number(req.params.id);
+  const todoId = Number(req.params.id);
 
-    if(todosData.has(todoId)) {
-      todosData.delete(todoId);
+  if(todos.has(todoId)) {
+    todos.delete(todoId);
 
-      res.status(200).json({
-        message: 'Todo deleted',
-      });
-    } else {
-      res.status(200).json({
-        message: `Todo with id ${todoId} not found`,
-      });
-    }
-  } catch (e) {
-    console.log(e)
-    res.status(500).json({
-      message: 'Server error',
+    res.status(200).json({
+      message: 'Todo deleted',
+    });
+  } else {
+    res.status(200).json({
+      message: `Todo with id ${todoId} not found`,
     });
   }
 });
